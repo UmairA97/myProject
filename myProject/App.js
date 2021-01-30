@@ -1,32 +1,26 @@
 import React, { Component } from 'react';
-import { Text, View } from 'react-native';
+import 'react-native-gesture-handler';
+import {View, TextInput, Text, Alert, StyleSheet, TouchableOpacity} from 'react-native'
+
+
+import Login from './Screens/log-in'
+//import Signup from './Screens/sign-up'
 
 class HelloWorldApp extends Component{
-  render(){
+  constructor(props){
+    super(props);
 
-    let name = "umair";
-
-    return(
-      <View>
-      <SayHello name="bob" />
-      <SayHello name="umair" />
-
-      </View>
-    );
-    
   }
-
-}
-
-class SayHello extends Component {
-  render(){
+  
+  render() {
     return (
       <View>
-        <Text>Hello {this.props.name}</Text>
+       <Login></Login>
       </View>
-    )
-  };
-}
+      
 
+    );
+  }
+}
 
 export default HelloWorldApp;
