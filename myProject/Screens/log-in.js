@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import 'react-native-gesture-handler';
-import {View, TextInput, Text, Alert, StyleSheet, TouchableOpacity} from 'react-native'
+import {View, TextInput, Text, Alert, StyleSheet, TouchableOpacity, Button} from 'react-native'
 
 
 
@@ -34,19 +34,19 @@ class Login extends Component{
     
   }
   
+  static navigationOptions = {
+    header:null
+  }
   
-  signup= (signup) => {
-  
-    this.signup
-     
-   }
-   
 
   render() {
+    
+    const navigation = this.props.navigation;
+    
     return (
       <View>
        
-        <Text style = {styles.Header}> Coffida </Text>
+        <Text style = {styles.Header}> Log In </Text>
 
         <View style = {styles.Form}></View>
         <TextInput style = {styles.Text}  placeholder = "Email..." onChangeText = {this.handleEmail} value={this.state.email} />
@@ -59,9 +59,12 @@ class Login extends Component{
           <Text style = {styles.Login}>LOG IN</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style = {styles.Button} onPress TouchableOpacity>
-          <Text style = {styles.Login}>SIGN UP</Text>
-          </TouchableOpacity>
+          <View  style = {styles.Back}>
+            <Button
+            title = "Go back"
+           onPress = {() => navigation.goBack()}
+      />
+      </View>
 
       </View>
       
@@ -105,10 +108,16 @@ const styles = StyleSheet.create({
 
   Form : {
     padding:5
-  }
+  },
 
-  })
+  Back: {
+    width: "80%", 
+    margin: 40,
+    alignItems: 'center'
+  
+  },
 
 
+});
 
 export default Login;

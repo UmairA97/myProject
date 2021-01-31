@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import 'react-native-gesture-handler';
-import {View, TextInput, Text, Alert, StyleSheet, TouchableOpacity} from 'react-native'
+import {View, TextInput, Text, Alert, StyleSheet, TouchableOpacity, Button} from 'react-native'
+import { ScrollView } from 'react-native-gesture-handler';
 
 
 class Signup extends Component{
@@ -39,9 +40,14 @@ class Signup extends Component{
      
    }
 
+   static navigationOptions = {
+    header:null
+  }
+  
+
   render() {
     return (
-      <View>
+      <ScrollView>
        
         <Text style = {styles.Header}> Sign Up </Text>
 
@@ -62,7 +68,14 @@ class Signup extends Component{
           <Text style = {styles.Login}>Create Account</Text>
           </TouchableOpacity>
 
+          <View  style = {styles.Back}>
+            <Button
+            title = "Go back"
+           onPress = {() => navigation.goBack()}
+      />
       </View>
+
+      </ScrollView>
       
 
     );
@@ -104,9 +117,16 @@ const styles = StyleSheet.create({
 
   Form : {
     padding:5
-  }
+  },
 
-  })
+  Back: {
+    width: "80%", 
+    margin: 40,
+    alignItems: 'center'
+  
+  },
 
+
+});
 
 export default Signup;
