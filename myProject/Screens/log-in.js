@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import 'react-native-gesture-handler';
 import {View, TextInput, Text, Alert, StyleSheet, TouchableOpacity, Button} from 'react-native'
 
-
+import { ScrollView } from 'react-native-gesture-handler';
 
 class Login extends Component{
   constructor(props){
@@ -34,17 +34,13 @@ class Login extends Component{
     
   }
   
-  static navigationOptions = {
-    header:null
-  }
-  
 
   render() {
     
     const navigation = this.props.navigation;
     
     return (
-      <View>
+      <ScrollView>
        
         <Text style = {styles.Header}> Log In </Text>
 
@@ -66,7 +62,7 @@ class Login extends Component{
       />
       </View>
 
-      </View>
+      </ScrollView>
       
 
     );

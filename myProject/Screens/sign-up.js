@@ -40,12 +40,11 @@ class Signup extends Component{
      
    }
 
-   static navigationOptions = {
-    header:null
-  }
-  
 
   render() {
+
+    const navigation = this.props.navigation;
+
     return (
       <ScrollView>
        
@@ -73,6 +72,7 @@ class Signup extends Component{
             title = "Go back"
            onPress = {() => navigation.goBack()}
       />
+
       </View>
 
       </ScrollView>
