@@ -12,6 +12,18 @@ class Signup extends Component{
     email: '',
     password: '',
    }
+
+   //post request for user
+  this.state = {
+
+    isLoading: true,
+    first_name: '',
+    last_name:'',
+    email: '',
+    password: ''
+
+   };
+   
   }
 
   handleEmail = (email) => {
@@ -25,7 +37,7 @@ class Signup extends Component{
     this.setState({password:password})
   }
 
-  login = (login) => {
+  /*login = (login) => {
      
    Alert.alert(
      this.state.email,
@@ -33,12 +45,44 @@ class Signup extends Component{
      )
     
   }
-  
+  */
+
   signup= (signup) => {
      
     this.Signup
      
    }
+
+   addItem(){
+     let to_send = {
+
+      first_name: this.state.first_name,
+      last_name: this.state.last_name,
+      email: this.state.email,
+      password: this.state.password
+
+     };
+
+     return fetch ("http://10.0.2.2:3333/api/1.0.0/user",{
+       method: 'post',
+       headers:{
+
+        'Content-Type': 'application/json'
+       },
+       body: JSON.stringify(to_send)
+     })
+
+     .then((response) => {
+       Alert.alert("Congratulations, you have sucessfully signed up!")
+       this.getData();
+
+     })
+
+     .catch((error) => {
+       console.log(error);
+
+     })   
+  }
 
 
   render() {
@@ -51,19 +95,19 @@ class Signup extends Component{
         <Text style = {styles.Header}> Sign Up </Text>
 
         <View style = {styles.Form}></View>
-        <TextInput style = {styles.Text}  placeholder = "First Name" onChangeText = {this.handleEmail} value={this.state.email} />
+        <TextInput style = {styles.Text}  placeholder = "First Name" onChangeText = {(first_name) => this.setState({first_name})} value={this.state.first_name} />
         
         <View style = {styles.Form}></View>
-        <TextInput style = {styles.Text} placeholder = "Last Name" onChangeText = {this.handlePassword} value={this.state.password} secureTextEntry={true} />
+        <TextInput style = {styles.Text} placeholder = "Last Name" onChangeText = {(last_name) => this.setState({last_name})} value={this.state.last_name} />
 
         <View style = {styles.Form}></View>
-        <TextInput style = {styles.Text} placeholder = "Email" onChangeText = {this.handlePassword} value={this.state.password} secureTextEntry={true} />
+        <TextInput style = {styles.Text} placeholder = "Email" onChangeText = {(email) => this.setState({email})} value={this.state.email} />
 
         <View style = {styles.Form}></View>
-        <TextInput style = {styles.Text} placeholder = "Password" onChangeText = {this.handlePassword} value={this.state.password} secureTextEntry={true} />
+        <TextInput style = {styles.Text} placeholder = "Password" onChangeText = {(password) => this.setState({password})} value={this.state.password} secureTextEntry={true} />
 
         
-        <TouchableOpacity style = {styles.Button} onPress = {this.login} TouchableOpacity>
+        <TouchableOpacity style = {styles.Button} onPress = {() => this.addItem()} TouchableOpacity>
           <Text style = {styles.Login}>Create Account</Text>
           </TouchableOpacity>
 
@@ -75,8 +119,7 @@ class Signup extends Component{
 
       </View>
 
-      </ScrollView>
-      
+      </ScrollView> 
 
     );
   }
@@ -88,7 +131,8 @@ const styles = StyleSheet.create({
       fontWeight:'bold',
       backgroundColor:'lightblue', 
       padding:20, 
-      fontSize:25
+      fontSize:25,
+      textAlign: 'center'
   },
 
   Text: {

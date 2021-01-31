@@ -4,7 +4,9 @@ import {View, Text, StyleSheet, Button} from 'react-native';
 
 import { ScrollView } from 'react-native-gesture-handler';
 
-class About extends Component{
+// reviews : quality, price, cleanliness) 
+
+class Reviews extends Component{
 
     render() {
 
@@ -15,7 +17,7 @@ class About extends Component{
         <ScrollView>
 
             <View style ={styles.Header}>
-            <Text style = {styles.text}> About Us </Text>
+            <Text style = {styles.text}> Reviews </Text>
             </View>
 
         </ScrollView>
@@ -42,4 +44,4 @@ class About extends Component{
 
 });
 
-  export default About;
+  export default Reviews;
