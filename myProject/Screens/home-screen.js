@@ -1,15 +1,16 @@
 import 'react-native-gesture-handler';
 import React, { Component } from 'react';
-import {View, Text, StyleSheet, Button} from 'react-native';
+import {View, Text, StyleSheet, Button, Image} from 'react-native';
 
 import { ScrollView } from 'react-native-gesture-handler';
+
 
 
 class HomeScreen extends Component{
 
 
   render() {
-    
+  
    const navigation = this.props.navigation;
 
     return ( 
@@ -21,33 +22,44 @@ class HomeScreen extends Component{
       </View>
 
       <View style = {styles.main}>
-      <Text style = {styles.text}> Welcome</Text>
+      <Text style = {styles.texts}> Welcome</Text>
       </View>
 
       <View style = {styles.mains}>
-      <Text style = {styles.mini}> Your one stop place for a coffee fix</Text>
+      <Text style = {styles.mini}> Your one stop place for a coffee fix!</Text>
       </View>
 
       <View style = {styles.container}>
-      <Button 
+      <Button color= "#6b8e23"
       title = "Log in"
       onPress = {() => navigation.navigate('Log in')}
       />
       </View>
 
       <View style = {styles.bottom}>
-      <Button 
+      <Button color= "#808000"
       title = "Sign up"
       onPress = {() => navigation.navigate('Sign up')}
       />
       </View>
+
+      <View>
+
+      <Image source={{uri: 'https://www.incimages.com/uploaded_files/image/1920x1080/getty_938993594_401542.jpg'}}  
+       style={{width: 300, height: 200, bottom: 550, left:45}} />  
+
+
+
+
+      </View>
+
 
       </ScrollView>
     );
   }
 }
 
-
+//#6b8e23
 
 const styles = StyleSheet.create({
   container: {
@@ -59,14 +71,21 @@ const styles = StyleSheet.create({
   text: {
     fontSize:30,
     textAlign: 'center',
-    color:'steelblue', 
+    color:'burlywood', 
+    fontWeight:'bold'
+  },
+
+  texts:{
+    fontSize:30,
+    textAlign: 'center',
+    color:'saddlebrown', 
     fontWeight:'bold'
   },
 
   Header: {
-    color:'steelblue', 
+
     fontWeight:'bold',
-    backgroundColor:'lightblue', 
+    backgroundColor:'saddlebrown', 
     padding:18, 
     fontSize:25
 },
@@ -78,7 +97,6 @@ const styles = StyleSheet.create({
 },
 
   main: {
-  color:'steelblue', 
   fontWeight:'bold',
   paddingTop:300, 
   fontSize:25
@@ -87,18 +105,15 @@ const styles = StyleSheet.create({
   mini: {
   fontSize:15,
   textAlign: 'center',
-  color:'steelblue', 
+  color:'peru', 
   fontWeight:'bold'
 },
 
-  mains: {
-  color:'steelblue', 
+  mains: { 
   fontWeight:'bold',
   paddingTop:20, 
   fontSize:25
 },
-
-
 
 });
 

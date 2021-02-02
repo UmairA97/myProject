@@ -26,9 +26,8 @@ class Coffee extends Component{
 
   const styles = StyleSheet.create({
   Header: {
-    color:'steelblue', 
     fontWeight:'bold',
-    backgroundColor:'lightblue', 
+    backgroundColor:'saddlebrown', 
     padding:18, 
     fontSize:25
   },
@@ -36,7 +35,7 @@ class Coffee extends Component{
   text: {
     fontSize:25,
     textAlign: 'center',
-    color:'steelblue', 
+    color:'burlywood', 
     fontWeight:'bold'
   },
 

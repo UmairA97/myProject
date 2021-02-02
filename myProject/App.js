@@ -1,9 +1,9 @@
 import 'react-native-gesture-handler';
 
 import React, { Component } from 'react';
-import { NavigationContainer, DrawerActions } from '@react-navigation/native';
+import { NavigationContainer} from '@react-navigation/native';
 import { createDrawerNavigator} from '@react-navigation/drawer';
-import { FlatList, ActivityIndicator, Text, View  } from 'react-native';
+//import { FlatList, ActivityIndicator, Text, View  } from 'react-native';
 
 import Login from './Screens/log-in';
 import Signup from './Screens/sign-up';
@@ -30,7 +30,7 @@ class HelloWorldApp extends Component{
         <Drawer.Screen name = "Sign up" component = {Signup} />
         <Drawer.Screen name = "Coffee" component = {Coffee} />
         <Drawer.Screen name = "Reviews" component = {Reviews} />
-        <Drawer.Screen name = "About" component = {About} />
+        <Drawer.Screen name = "About Us" component = {About} />
         
       </Drawer.Navigator>
       </NavigationContainer>

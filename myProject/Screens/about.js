@@ -1,6 +1,6 @@
 import 'react-native-gesture-handler';
 import React, { Component } from 'react';
-import {View, Text, StyleSheet, Button} from 'react-native';
+import {View, Text, StyleSheet, Image} from 'react-native';
 
 import { ScrollView } from 'react-native-gesture-handler';
 
@@ -26,9 +26,8 @@ class About extends Component{
 
   const styles = StyleSheet.create({
   Header: {
-    color:'steelblue', 
     fontWeight:'bold',
-    backgroundColor:'lightblue', 
+    backgroundColor:'saddlebrown', 
     padding:18, 
     fontSize:25
   },
@@ -36,7 +35,7 @@ class About extends Component{
   text: {
     fontSize:25,
     textAlign: 'center',
-    color:'steelblue', 
+    color:'burlywood', 
     fontWeight:'bold'
   },
 

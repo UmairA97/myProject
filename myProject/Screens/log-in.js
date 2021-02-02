@@ -55,13 +55,6 @@ class Login extends Component{
           <Text style = {styles.Login}>LOG IN</Text>
           </TouchableOpacity>
 
-          <View  style = {styles.Back}>
-            <Button
-            title = "Go back"
-           onPress = {() => navigation.goBack()}
-      />
-      </View>
-
       </ScrollView>
       
 
@@ -71,9 +64,9 @@ class Login extends Component{
 
 const styles = StyleSheet.create({
   Header: {
-      color:'steelblue', 
+      color:'burlywood', 
       fontWeight:'bold',
-      backgroundColor:'lightblue', 
+      backgroundColor:'saddlebrown', 
       padding:20, 
       fontSize:25,
       textAlign: 'center'
@@ -89,7 +82,7 @@ const styles = StyleSheet.create({
   },
 
   Button: {
-    backgroundColor: 'lightblue',
+    backgroundColor: 'burlywood',
     padding:10,
     width: "80%", 
     margin: 40,
@@ -100,7 +93,7 @@ const styles = StyleSheet.create({
   Login: {
     fontSize: 20,
     fontWeight: 'bold',
-    color: 'steelblue'
+    color: 'white'
   },
 
   Form : {

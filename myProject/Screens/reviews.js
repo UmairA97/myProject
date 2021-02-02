@@ -4,7 +4,8 @@ import {View, Text, StyleSheet, Button} from 'react-native';
 
 import { ScrollView } from 'react-native-gesture-handler';
 
-// reviews : quality, price, cleanliness) 
+// reviews : quality, price, cleanliness, short text
+// users can like other people reviews
 
 class Reviews extends Component{
 
@@ -28,9 +29,8 @@ class Reviews extends Component{
 
   const styles = StyleSheet.create({
   Header: {
-    color:'steelblue', 
     fontWeight:'bold',
-    backgroundColor:'lightblue', 
+    backgroundColor:'saddlebrown', 
     padding:18, 
     fontSize:25
   },
@@ -38,7 +38,7 @@ class Reviews extends Component{
   text: {
     fontSize:25,
     textAlign: 'center',
-    color:'steelblue', 
+    color:'burlywood', 
     fontWeight:'bold'
   },
 
