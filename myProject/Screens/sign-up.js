@@ -1,17 +1,13 @@
 import React, { Component } from 'react';
 import 'react-native-gesture-handler';
-import {View, TextInput, Text, Alert, StyleSheet, TouchableOpacity, Button} from 'react-native'
+import {View, TextInput, Text, StyleSheet, TouchableOpacity,ToastAndroid } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler';
+
 
 
 class Signup extends Component{
   constructor(props){
     super(props);
-  
-  this.state = {
-    email: '',
-    password: '',
-   }
 
    //post request for user
   this.state = {
@@ -26,60 +22,42 @@ class Signup extends Component{
    
   }
 
-  handleEmail = (email) => {
-//do some validation
-    this.setState({email:email})
-
-  }
-
-  handlePassword = (password) => {
-//do some validation
-    this.setState({password:password})
-  }
-
-  /*login = (login) => {
-     
-   Alert.alert(
-     this.state.email,
-     this.state.password
-     )
-    
-  }
-  */
-
-  signup= (signup) => {
-     
-    this.Signup
-     
-   }
-
-   addItem(){
-     let to_send = {
-
-      first_name: this.state.first_name,
-      last_name: this.state.last_name,
-      email: this.state.email,
-      password: this.state.password
-
-     };
-
+signup = (signup) => {
+  
      return fetch ("http://10.0.2.2:3333/api/1.0.0/user",{
        method: 'post',
        headers:{
 
         'Content-Type': 'application/json'
        },
-       body: JSON.stringify(to_send)
+       
+       body: JSON.stringify(this.state)
+       
      })
 
      .then((response) => {
-       Alert.alert("Congratulations, you have sucessfully signed up!")
-       this.getData();
+       
+       if(response.status === 201){
+         return response.json()
+       }
+       else if(response.status === 400){
+         throw 'Failed Validation';
+       }
+       else{
+         throw 'Something went Wrong';
+       }
+       })
 
+       .then((responseJson) => {
+       console.log("User created with ID: ", responseJson);
+       ToastAndroid.show("Account Created",ToastAndroid.SHORT);
+       this.props.navigation.navigate("Log in");
      })
+     
 
      .catch((error) => {
        console.log(error);
+      ToastAndroid.show(error,ToastAndroid.SHORT);
 
      })   
   }
@@ -107,7 +85,10 @@ class Signup extends Component{
         <TextInput style = {styles.Text} placeholder = "Password" onChangeText = {(password) => this.setState({password})} value={this.state.password} secureTextEntry={true} />
 
         
-        <TouchableOpacity style = {styles.Button} onPress = {() => this.addItem()} TouchableOpacity>
+        <TouchableOpacity style = {styles.Button} 
+        onPress = {() => this.signup()} 
+       
+        TouchableOpacity>
           <Text style = {styles.Login}>Create Account</Text>
           </TouchableOpacity>
 

@@ -4,10 +4,7 @@ import {View, Text, StyleSheet, Button, Image} from 'react-native';
 
 import { ScrollView } from 'react-native-gesture-handler';
 
-
-
 class HomeScreen extends Component{
-
 
   render() {
   
@@ -21,7 +18,7 @@ class HomeScreen extends Component{
       <Text style = {styles.text}> Coffida</Text>
       </View>
 
-      <View style = {styles.main}>
+      <View style = {styles.main}> 
       <Text style = {styles.texts}> Welcome</Text>
       </View>
 
@@ -47,9 +44,6 @@ class HomeScreen extends Component{
 
       <Image source={{uri: 'https://www.incimages.com/uploaded_files/image/1920x1080/getty_938993594_401542.jpg'}}  
        style={{width: 300, height: 200, bottom: 550, left:45}} />  
-
-
-
 
       </View>
 

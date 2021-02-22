@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import 'react-native-gesture-handler';
-import {View, TextInput, Text, Alert, StyleSheet, TouchableOpacity, Button} from 'react-native'
+import {View, TextInput, Text, StyleSheet, TouchableOpacity, ToastAndroid} from 'react-native'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { ScrollView } from 'react-native-gesture-handler';
 
@@ -25,15 +26,50 @@ class Login extends Component{
     this.setState({password:password})
   }
 
-  login = (login) => {
+
+  login = async () => {
+
+    return fetch ("http://10.0.2.2:3333/api/1.0.0/user/login",{
+      method: 'post',
+      headers:{
+
+       'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(this.state)
+      //to_send
+    })
+
+    .then((response) => {
      
-   Alert.alert(
-     this.state.email,
-     this.state.password
-     )
+      if(response.status === 200){
+        return response.json()
+      }
+      else if(response.status === 400){
+        throw 'Invalid email or password';
+      }
+      else{
+        throw 'Something went Wrong';
+      }
+      
+
+    })
+
+    .then(async (responseJson) => {
+      console.log(responseJson);
+      await AsyncStorage.setItem('@session_token',responseJson.token);
+      await AsyncStorage.setItem('@user_id',JSON.stringify (responseJson.id));
+      console.log(await AsyncStorage.getItem('@session_token'));
+      this.props.navigation.navigate("Reviews");
+    })
     
-  }
-  
+
+    .catch((error) => {
+      console.log(error);
+     ToastAndroid.show(error,ToastAndroid.SHORT);
+
+    })   
+ }
+ 
 
   render() {
     
@@ -51,7 +87,11 @@ class Login extends Component{
         <TextInput style = {styles.Text} placeholder = "Password..." onChangeText = {this.handlePassword} value={this.state.password} secureTextEntry={true} />
 
         
-        <TouchableOpacity style = {styles.Button} onPress = {this.login} TouchableOpacity>
+        <TouchableOpacity style = {styles.Button} 
+        onPress = {() => this.login()}
+
+       // onPress = {this.login} 
+        TouchableOpacity>
           <Text style = {styles.Login}>LOG IN</Text>
           </TouchableOpacity>
 
