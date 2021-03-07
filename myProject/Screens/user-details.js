@@ -98,7 +98,7 @@ class User extends Component{
   }}
 
       render() {
-         
+        const navigation = this.props.navigation;
         return (
    
           <View>

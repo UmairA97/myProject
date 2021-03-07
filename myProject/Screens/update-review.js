@@ -8,7 +8,7 @@ import { ScrollView, TextInput, TouchableOpacity, ToastAndroid} from 'react-nati
 // reviews : quality, price, cleanliness, short text
 // users can like other people reviews
 
-class Reviews extends Component{
+class updateReviews extends Component{
 
 
 
@@ -21,20 +21,19 @@ class Reviews extends Component{
       overall_rating: 1,
       price_rating:1,
       quality_rating:1,
-      clenliness_rating:1
+      clenliness_rating:1,
+      location_id: this.props.route.params.location_id,
+      review_id: this.props.route.params.review_id
     }
   
     };
 
-    review = async () => {
+      updateReview = async () => {
     
-
-      //let id = await AsyncStorage.getItem('@user_id');
-      let id = this.props.route.params.location_id;
       let value = await AsyncStorage.getItem('@session_token');
       
-      return fetch ("http://10.0.2.2:3333/api/1.0.0/location/" + id + '/review',{
-        method: 'post',
+      return fetch ("http://10.0.2.2:3333/api/1.0.0/location/" +this.state.location_id + "/review/" + this.state.review_id,{
+        method: 'patch',
         headers:{
   
          'Content-Type': 'application/json',
@@ -52,8 +51,8 @@ class Reviews extends Component{
 
       .then((response) => {
      
-        if(response.status === 201){
-          alert("Review Added!");
+        if(response.status === 200){
+          alert("Review Updated!");
         }
         else if(response.status === 400){
           throw 'Can not write review';
@@ -77,7 +76,7 @@ class Reviews extends Component{
         <ScrollView>
 
             <View style ={styles.Header}>
-            <Text style = {styles.text}> Reviews </Text>
+            <Text style = {styles.text}> Update Reviews </Text>
             </View>
 
 <View style = {styles.Form}></View>
@@ -97,10 +96,10 @@ class Reviews extends Component{
 
 
 <TouchableOpacity style = {styles.Button} 
-onPress = {() => this.review()} 
+onPress = {() => this.updateReview()} 
 
 TouchableOpacity>
-  <Text style = {styles.Login}>Post Review</Text>
+  <Text style = {styles.Login}>Update Review</Text>
   </TouchableOpacity>
   
 
@@ -146,5 +145,4 @@ TouchableOpacity>
 
 });
 
-  export default Reviews;
-
+  export default updateReviews;

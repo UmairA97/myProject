@@ -1,68 +1,130 @@
 import 'react-native-gesture-handler';
 import React, { Component } from 'react';
-import {View, Text, StyleSheet, FlatList, TextInput, TouchableOpacity} from 'react-native';
+import {View, Text, StyleSheet, FlatList, TextInput, TouchableOpacity, Image, ToastAndroid} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { ScrollView } from 'react-native-gesture-handler';
 
 
-class Coffee extends Component{
+class Update extends Component{
   constructor(props){
     super(props);
   
   this.state = {
     isLoading: true,
-    locationData:[],
-    location_id: ''
+    reviews:[],
+    review_body:'',
+    overall_rating: 0,
+    price_rating:0,
+    quality_rating:0,
+    clenliness_rating:0,
    };
   }
 
   componentDidMount(){
-    this.getData();
+    this.getReview();
+}
+
+getReview = async () => {
+
+let id = await AsyncStorage.getItem('@user_id');
+let value = await AsyncStorage.getItem('@session_token');
+
+return fetch("http://10.0.2.2:3333/api/1.0.0/user/" + id,{
+  method: 'get',
+  headers:{
+   'X-Authorization': value
   }
+})
+
+.then((response) => {
+  if(response.status === 200){
+    return response.json()
+  }else{
+    throw 'Something went wrong';
+  }
+})
 
 
- getData(){
-   console.log("getting data..");
-  return fetch("http://10.0.2.2:3333/api/1.0.0/location/2")
-    .then((response) => response.json())
-    .then((responseJson) => {
-      console.log(responseJson);
+.then(async (responseJson) => {
 
-      this.setState({
-        isLoading: false,
-        locationData: responseJson,
-      });
+  this.setState({"reviews": responseJson.reviews})
+ 
+  //console.log(this.state);
+})
 
-    })
-    .catch((error) =>{
-      console.log(error);
-    });
+.catch((error) => {
+  console.log(error);
+  ToastAndroid.show(error,ToastAndroid.SHORT);
+})
+
 }
 
 render(){
+  const navigation = this.props.navigation;
   return (
+  <View>
+           
+  <View style ={styles.Header}>
+  <Text style = {styles.text}> Edit and Delete Reviews </Text>
+  </View>
 
-    <View>
-         
-      <View style ={styles.Header}>
-      <Text style = {styles.text}> Location Info </Text>
-      </View>
+  <View>
 
-      <View style = {styles.Form}></View>
-      <TextInput style = {styles.Text}  placeholder = "Location ID.." onChangeText = {(location_id) => this.setState({location_id})} value={this.state.location_id} />
+<Text style = {styles.review}>
+  Click the review id to write a edit a review!
+</Text>
+</View>
 
-      <TouchableOpacity style = {styles.Button} 
-           onPress = {() => this.getData()} 
+  <FlatList style = {{height: '85%', padding: 5}}
+  data = {this.state.reviews}
+  renderItem = {
+    ({item}) =>(
 
-           TouchableOpacity>
-          <Text style = {styles.Login}>Get Location Info</Text>
-          </TouchableOpacity>
+  <View>
 
+  <Text style = {styles.Texts} onPress = {() => navigation.navigate('Update Reviews',{review_id:item.review.review_id, location_id:item.location.location_id})}>
+    REVIEW ID: {item.review.review_id}
+  </Text>
+
+  <Text style = {styles.Texts}>
+    Overall Rating: {item.review.overall_rating}
+  </Text>
+
+  <Text style = {styles.Texts}>
+    Price Rating: {item.review.price_rating}
+  </Text>
+
+  <Text style = {styles.Texts}>
+    Quality Rating: {item.review.quality_rating}
+  </Text>
+
+  <Text style = {styles.Texts}>
+    Clenliness Rating: {item.review.clenliness_rating}
+  </Text>
+
+  <Text style = {styles.Texts}>
+    Review Body: {item.review.review_body}
+  </Text>
+  <Text>
+
+  </Text>
+
+  </View>
+  
+  
+  )}
     
-      </View>
-  );
-}
+    keyExtractor = {(item)=> item.review.review_id.toString()}
+    />
+    
+
+  </View>
+  )}
 }
 
-export default Coffee;
+
+
+export default Update;
 
 
 
@@ -100,14 +162,33 @@ Form : {
   padding:5
 },
 
+Button: {
+  backgroundColor: 'burlywood',
+  padding:10,
+  width: "80%", 
+  margin: 40,
+  alignItems: 'center'
+
+},
+
+Login: {
+  fontSize: 20,
+  fontWeight: 'bold',
+  color: 'white'
+},
+
+Texts: {
+  fontSize:15,
+  color:'burlywood', 
+  fontWeight:'bold'
+},
+
+review: {
+  fontSize:15,
+  color:'black', 
+  fontWeight:'bold',
+  textAlign: 'center',
+},
+
 });
 
-/*
-      <View>
-        <FlatList
-          data={this.state.locationData}
-          renderItem={({location}) => <Text>{location.location_name}</Text>}
-          keyExtractor={(location,index) => location.id}
-        />
-      </View>
-      */

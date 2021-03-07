@@ -59,7 +59,7 @@ class Login extends Component{
       await AsyncStorage.setItem('@session_token',responseJson.token);
       await AsyncStorage.setItem('@user_id',JSON.stringify (responseJson.id));
       console.log(await AsyncStorage.getItem('@session_token'));
-      this.props.navigation.navigate("Reviews");
+      this.props.navigation.navigate("Location Info");
     })
     
 
